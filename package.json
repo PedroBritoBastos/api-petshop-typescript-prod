@@ -50,7 +50,7 @@
     "migration:run": "yarn typeorm migration:run",
     "dev": "tsx watch src/main.ts",
     "test": "jest",
-    "build": "tsc && prisma generate && prisma migrate deploy",
+    "build": "prisma generate && prisma migrate deploy && tsc",
     "start": "node dist/main.js"
   }
 }
