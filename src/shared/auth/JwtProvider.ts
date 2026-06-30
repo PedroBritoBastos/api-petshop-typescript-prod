@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Request } from "express";
+import { TokenPayload } from "../../modules/client/types/TokenPayload";
 import "dotenv/config";
 
 /**
@@ -27,5 +28,11 @@ export class JwtProvider {
       throw new Error("Token não fornecido.");
     }
     return token;
+  }
+
+  public static getLoggedClient(req: Request): any {
+    const token = req.cookies.token;
+    const decoded = JwtProvider.verifyToken(token) as TokenPayload;
+    return decoded;
   }
 }
