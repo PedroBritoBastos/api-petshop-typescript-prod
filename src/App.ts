@@ -4,7 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
 
-//import { ClientRoutes } from "./modules/client/routes/ClientRoutes";
+import { ClientRoutes } from "./modules/client/routes/ClientRoutes";
 //import { AuthRoutes } from "./modules/auth/routes/AuthRoutes";
 //import { PetRoutes } from "./modules/pet/routes/PetRoutes";
 //import { PetshopServiceRoutes } from "./modules/petshopService/routes/PetshopServiceRoutes";
@@ -14,7 +14,7 @@ import path from "path";
  */
 export default class App {
   public app: Application;
-  // private clientRoutes: ClientRoutes = new ClientRoutes();
+  private clientRoutes: ClientRoutes = new ClientRoutes();
   // private authRoutes: AuthRoutes = new AuthRoutes();
   //  private petRoutes: PetRoutes = new PetRoutes();
   // private petshopServiceRoutes: PetshopServiceRoutes = new PetshopServiceRoutes();
@@ -37,7 +37,7 @@ export default class App {
   }
 
   private routes(): void {
-    //  this.app.use(this.clientRoutes.router);
+    this.app.use(this.clientRoutes.router);
     //  this.app.use(this.authRoutes.router);
     //  this.app.use(this.petRoutes.router);
     //  this.app.use(this.petshopServiceRoutes.router);

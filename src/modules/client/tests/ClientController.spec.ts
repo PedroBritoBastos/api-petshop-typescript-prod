@@ -1,16 +1,8 @@
 import { describe, test, expect } from "@jest/globals";
 import { ClientController } from "../controllers/ClientController";
 import { CreateClientDTO } from "../dtos/CreateClientDTO";
+import { ClientService } from "../services/ClientService";
 
 describe("Testando ClientController", () => {
-  const clientController: ClientController = new ClientController();
-
-  const clientDTO: CreateClientDTO = {
-    name: "Pedro",
-    email: "pedro@email.com",
-    phone: "1234564",
-    cpf: "23030449",
-  };
-
   // testando se um Client está sendo criado
 });
