@@ -30,9 +30,9 @@ export class JwtProvider {
     return token;
   }
 
-  public static getLoggedClient(req: Request): any {
+  public static getLoggedClientId(req: Request): any {
     const token = req.cookies.token;
     const decoded = JwtProvider.verifyToken(token) as TokenPayload;
-    return decoded;
+    return decoded.id;
   }
 }

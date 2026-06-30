@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PetService } from "../services/PetService";
+import { JwtProvider } from "../../../shared/auth/JwtProvider";
 import "dotenv/config";
 
 export class PetController {
@@ -7,7 +8,7 @@ export class PetController {
 
   async create(req: Request, res: Response): Promise<Response | undefined> {
     const { name, age, weight } = req.body;
-    const clientId = req.user.id;
+    const clientId = JwtProvider.getLoggedClientId(req);
     const imageUrl = req.file ? `${process.env.API_URL}/photos/pets/${req.file.filename}` : "";
 
     const data = {
@@ -37,7 +38,7 @@ export class PetController {
 
   async deleteById(req: Request, res: Response): Promise<Response | undefined> {
     try {
-      const clientId = req.user.id;
+      const clientId = JwtProvider.getLoggedClientId(req);
       const id = req.params.id as string;
       const result = await this.petService.deleteById(clientId, id);
 
@@ -65,7 +66,7 @@ export class PetController {
 
   async update(req: Request, res: Response): Promise<Response | undefined> {
     try {
-      const clientId = req.user.id;
+      const clientId = JwtProvider.getLoggedClientId(req);
       const id = req.params.id as string;
       const data = req.body;
       const result = await this.petService.update(id, clientId, data);
@@ -85,7 +86,7 @@ export class PetController {
 
   async adopt(req: Request, res: Response): Promise<Response | undefined> {
     try {
-      const adoptionClientId = req.user.id; // logged user id
+      const adoptionClientId = JwtProvider.getLoggedClientId(req); // logged user id
       const id = req.params.id as string; // pet id
 
       // criando DTO

@@ -13,7 +13,6 @@ export class PetMiddleware {
           message: "Acesso negado.",
         });
       }
-      (req as any).user = decoded;
       return next();
     } catch (error) {
       return res.status(401).json({
