@@ -12,7 +12,8 @@
     "strict": true,
     "module": "nodenext",
     "rootDir": "./src",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "types": ["node"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["generated", "node_modules"]
