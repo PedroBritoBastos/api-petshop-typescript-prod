@@ -41,7 +41,7 @@ export default class App {
     this.app.use(this.authRoutes.router);
     this.app.use(this.petRoutes.router);
     this.app.use(this.petshopServiceRoutes.router);
-    //  this.app.use("/photos", express.static(path.resolve("src/data/photos")));
+    this.app.use("/photos", express.static(path.resolve("src/data/photos")));
     this.app.get("/", (req: Request, res: Response) => {
       return res.send("Hello World");
     });
