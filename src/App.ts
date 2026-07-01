@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import { Application, Request, Response } from "express";
 import express from "express";
 import cors from "cors";
@@ -28,7 +30,7 @@ export default class App {
   private middlewares(): void {
     this.app.use(
       cors({
-        origin: "http://localhost:4200",
+        origin: ["http://localhost:4200", process.env.FRONTEND_URL as string],
         credentials: true,
       }),
     );
