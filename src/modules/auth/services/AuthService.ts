@@ -26,6 +26,6 @@ export class AuthService {
       role: client.role,
     });
 
-    return { clientId: client.id, token };
+    return { clientId: client, token };
   }
 }
