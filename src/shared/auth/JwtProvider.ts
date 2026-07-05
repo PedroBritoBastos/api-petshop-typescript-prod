@@ -4,7 +4,8 @@ import { TokenPayload } from "../../modules/client/types/TokenPayload";
 import "dotenv/config";
 
 /**
- * this class generates a jwt
+ * Provides a jwt token
+ * Deals with token validations
  */
 export class JwtProvider {
   private static secret = process.env.JWT_SECRET;

@@ -26,6 +26,8 @@ export class AuthService {
       role: client.role,
     });
 
-    return { client, token };
+    const { password: _, ...clientWithoutPassword } = client;
+
+    return { client: clientWithoutPassword, token };
   }
 }
