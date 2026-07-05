@@ -15,8 +15,8 @@ export class AuthController {
       // inserindo o token no cookie
       res.cookie("token", result.token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        secure: true,
+        sameSite: "none",
         maxAge: 1000 * 60 * 60,
       });
 
@@ -37,8 +37,8 @@ export class AuthController {
   static async logout(req: Request, res: Response) {
     res.clearCookie("token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
     });
 
     return res.status(200).json({ message: "Logout realizado." });
