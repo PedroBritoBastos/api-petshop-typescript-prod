@@ -10,13 +10,16 @@ export class JwtProvider {
   private static secret = process.env.JWT_SECRET;
 
   public static generateToken(payload: object): string {
-    return jwt.sign(payload, JwtProvider.secret as string, {
+    if (!JwtProvider.secret) throw new Error("Não há secret.");
+
+    return jwt.sign(payload, JwtProvider.secret, {
       expiresIn: "1h",
     });
   }
 
   public static verifyToken(token: string): any {
-    return jwt.verify(token, this.secret as string);
+    if (!this.secret) throw new Error("Não há secret.");
+    return jwt.verify(token, this.secret);
   }
 
   public static getClientToken(req: Request): string {
