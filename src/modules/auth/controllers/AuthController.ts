@@ -22,7 +22,7 @@ export class AuthController {
 
       return res.status(200).json({
         message: "Usuário logado",
-        clientId: result.clientId,
+        client: result,
       });
     } catch (error) {
       if (error instanceof Error) {
