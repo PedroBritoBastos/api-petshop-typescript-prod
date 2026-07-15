@@ -42,14 +42,7 @@ export class PetRoutes {
 
     this.router.get("/pets/:petId", PetMiddleware.verifyIfClientIsLogged, petController.getPetById.bind(petController));
 
-    this.router.post(
-      "/pets",
-      PetMiddleware.verifyIfClientIsLogged,
-      new Multer("src/data/photos/pets").upload.single("petPhoto"),
-      PetMiddleware.validateData,
-      PetMiddleware.validadePhotoData,
-      petController.create.bind(petController),
-    );
+    this.router.post("/pets", PetMiddleware.verifyIfClientIsLogged, PetMiddleware.validateData, PetMiddleware.validadePhotoData, petController.create.bind(petController));
 
     this.router.delete("/pets/:id", PetMiddleware.verifyIfClientIsLogged, petController.deleteById.bind(petController));
 
