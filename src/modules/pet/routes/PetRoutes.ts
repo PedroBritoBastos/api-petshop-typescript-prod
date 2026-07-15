@@ -6,6 +6,8 @@ import { PetMiddleware } from "../middlewares/PetMiddleware";
 
 import { PetService } from "../services/PetService";
 
+import { ImageService } from "../../image/services/imageService";
+
 import { PetRepository } from "../repositories/PetRepository";
 
 import { Multer } from "../../../shared/utils/Multer";
@@ -25,9 +27,10 @@ export class PetRoutes {
 
     // service
     const petService = new PetService(petRepository);
+    const imageService = new ImageService();
 
     // controller
-    const petController = new PetController(petService);
+    const petController = new PetController(petService, imageService);
 
     this.router.get("/pets", PetMiddleware.verifyIfIsAdmin, petController.getAll.bind(petController));
 
