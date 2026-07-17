@@ -1,17 +1,22 @@
-import cloudinary from "../config/cloudinary";
-import fs from "node:fs/promises";
+import "dotenv/config";
 
 export class ImageService {
-  public async upload(filePath: string, folder: string = "pets"): Promise<string> {
+  API = process.env.CLOUDINARY_API_URL as string;
+
+  public async upload(photo: File): Promise<string> {
     try {
-      // faz upload e retorna a url da imagem salva
-      const result = await cloudinary.uploader.upload(filePath, {
-        folder,
+      const formData = new FormData();
+      formData.append("file", photo);
+      formData.append("upload_preset", "petshop-api-preset");
+
+      const response = await fetch(this.API, {
+        method: "POST",
+        body: formData,
       });
-      await fs.unlink(filePath);
-      return result.secure_url;
+
+      const responseJson = await response.json();
+      return responseJson.secure_url;
     } catch (error) {
-      await fs.unlink(filePath).catch(() => {});
       throw error;
     }
   }

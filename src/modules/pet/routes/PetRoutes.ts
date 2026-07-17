@@ -6,7 +6,7 @@ import { PetMiddleware } from "../middlewares/PetMiddleware";
 
 import { PetService } from "../services/PetService";
 
-import { ImageService } from "../../image/services/imageService";
+import { ImageService } from "../../image/services/ImageService";
 
 import { PetRepository } from "../repositories/PetRepository";
 
@@ -42,7 +42,7 @@ export class PetRoutes {
 
     this.router.get("/pets/:petId", PetMiddleware.verifyIfClientIsLogged, petController.getPetById.bind(petController));
 
-    this.router.post("/pets", PetMiddleware.verifyIfClientIsLogged, PetMiddleware.validateData, PetMiddleware.validadePhotoData, petController.create.bind(petController));
+    this.router.post("/pets", PetMiddleware.verifyIfClientIsLogged, PetMiddleware.validateData, petController.create.bind(petController));
 
     this.router.delete("/pets/:id", PetMiddleware.verifyIfClientIsLogged, petController.deleteById.bind(petController));
 

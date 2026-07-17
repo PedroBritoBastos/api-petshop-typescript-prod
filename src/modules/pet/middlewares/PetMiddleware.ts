@@ -35,7 +35,7 @@ export class PetMiddleware {
   }
 
   public static validateData(req: Request, res: Response, next: NextFunction) {
-    const { name, age, weight } = req.body;
+    const { name, age, weight, photo } = req.body;
 
     if (!name) {
       return res.status(400).json({ message: "O nome é obrigatório." });
@@ -47,6 +47,10 @@ export class PetMiddleware {
 
     if (!weight) {
       return res.status(400).json({ message: "O peso é obrigatório." });
+    }
+
+    if (!photo) {
+      return res.status(400).json({ message: "A foto é obrigatória." });
     }
 
     return next();
