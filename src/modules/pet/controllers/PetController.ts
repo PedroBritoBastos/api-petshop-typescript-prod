@@ -1,7 +1,7 @@
+import "dotenv/config";
 import { Request, Response } from "express";
 import { PetService } from "../services/PetService";
 import { JwtProvider } from "../../../shared/auth/JwtProvider";
-import "dotenv/config";
 import { ImageService } from "../../image/services/ImageService";
 
 export class PetController {
@@ -11,12 +11,12 @@ export class PetController {
   ) {}
 
   async create(req: Request, res: Response): Promise<Response | undefined> {
-    const { name, age, weight, photo } = req.body;
+    const { name, age, weight } = req.body;
     const clientId = JwtProvider.getLoggedClientId(req);
     let imageUrl = "";
 
-    if (photo) {
-      imageUrl = await this.imageService.upload(photo);
+    if (req.file) {
+      imageUrl = await this.imageService.upload(req.file);
     }
 
     const data = {

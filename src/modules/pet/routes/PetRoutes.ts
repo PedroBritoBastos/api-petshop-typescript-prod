@@ -32,24 +32,41 @@ export class PetRoutes {
     // controller
     const petController = new PetController(petService, imageService);
 
+    // pegar todos os pets no painel de admin
     this.router.get("/pets", PetMiddleware.verifyIfIsAdmin, petController.getAll.bind(petController));
 
+    // pegar todos os pets disponiveis para adocao
     this.router.get("/pets/available", petController.getAvailablePets.bind(petController));
 
+    // pegar todos os pets adotados no painel de admin
     this.router.get("/pets/adopted", PetMiddleware.verifyIfIsAdmin, petController.getAdoptedPets.bind(petController));
 
+    // pegar todos os pets adotados pelo cliente
     this.router.get("/pets/adopted/:clientId", PetMiddleware.verifyIfClientIsLogged, petController.getAdoptedPetsByClientId.bind(petController));
 
+    // pegar o pet solicitado pelo cliente
     this.router.get("/pets/:petId", PetMiddleware.verifyIfClientIsLogged, petController.getPetById.bind(petController));
 
-    this.router.post("/pets", PetMiddleware.verifyIfClientIsLogged, PetMiddleware.validateData, petController.create.bind(petController));
+    // criar pet
+    this.router.post(
+      "/pets",
+      PetMiddleware.verifyIfClientIsLogged,
+      new Multer("src/data/photos/pets").upload.single("photo"),
+      PetMiddleware.validateData,
+      PetMiddleware.validadePhotoData,
+      petController.create.bind(petController),
+    );
 
+    // deletar pet
     this.router.delete("/pets/:id", PetMiddleware.verifyIfClientIsLogged, petController.deleteById.bind(petController));
 
+    // atualizar pet
     this.router.put("/pets/:id", PetMiddleware.verifyIfClientIsLogged, petController.update.bind(petController));
 
+    // adotar pet
     this.router.put("/pets/adoption/:id", PetMiddleware.verifyIfClientIsLogged, petController.adopt.bind(petController));
 
+    // enviar foto do pet
     this.router.post("/pets/upload/:id", new Multer("src/data/photos/pets").upload.single("petPhoto"), PetMiddleware.validadePhotoData, petController.uploadPhoto.bind(petController));
   }
 }
