@@ -17,7 +17,7 @@ export class PetController {
       let imageUrl = "";
 
       if (req.file) {
-        imageUrl = await this.imageService.upload(req.file);
+        imageUrl = await this.imageService.uploadPetPhoto(req.file);
       }
 
       const data = {
