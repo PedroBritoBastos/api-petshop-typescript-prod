@@ -25,8 +25,6 @@ export class ImageService {
 
       const json = await response.json();
 
-      console.log(json);
-
       if (!response.ok) {
         throw new Error(JSON.stringify(json));
       }
