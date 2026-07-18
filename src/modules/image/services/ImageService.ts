@@ -23,9 +23,15 @@ export class ImageService {
         body: formData,
       });
 
-      const responseJson = await response.json();
-      await fs.unlink(photo.path);
-      return responseJson.secure_url;
+      const json = await response.json();
+
+      console.log(json);
+
+      if (!response.ok) {
+        throw new Error(JSON.stringify(json));
+      }
+
+      return json.secure_url;
     } catch (error) {
       throw error;
     }

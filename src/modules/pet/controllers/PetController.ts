@@ -11,24 +11,24 @@ export class PetController {
   ) {}
 
   async create(req: Request, res: Response): Promise<Response | undefined> {
-    const { name, age, weight } = req.body;
-    const clientId = JwtProvider.getLoggedClientId(req);
-    let imageUrl = "";
-
-    if (req.file) {
-      imageUrl = await this.imageService.upload(req.file);
-    }
-
-    const data = {
-      clientId,
-      name,
-      age: Number(age),
-      weight: Number(weight),
-      isAdopted: false,
-      imageUrl,
-    };
-
     try {
+      const { name, age, weight } = req.body;
+      const clientId = JwtProvider.getLoggedClientId(req);
+      let imageUrl = "";
+
+      if (req.file) {
+        imageUrl = await this.imageService.upload(req.file);
+      }
+
+      const data = {
+        clientId,
+        name,
+        age: Number(age),
+        weight: Number(weight),
+        isAdopted: false,
+        imageUrl,
+      };
+
       const result = await this.petService.create(data);
 
       return res.status(201).json({
