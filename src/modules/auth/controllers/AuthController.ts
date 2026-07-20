@@ -46,19 +46,24 @@ export class AuthController {
 
   // pega o token dos cookies e retorna o payload com os dados do cliente logado
   static async getLoggedClient(req: Request, res: Response) {
-    const token = req.cookies.token;
+    try {
+      // verifica se o cliente está autenticado
+      const token = req.cookies.token;
+      if (!token) {
+        return res.status(401).json({
+          message: "Não autenticado",
+        });
+      }
 
-    if (!token) {
-      return res.status(401).json({
-        message: "Não autenticado",
-      });
+      // pega os dados do cliente logado
+      const payload = JwtProvider.verifyToken(token);
+      const client = await this.authService.getLoggedClientById(payload.id);
+
+      return res.status(200).json({ result: client });
+    } catch (error) {
+      if (error instanceof Error) {
+        return res.status(404).json({ message: error.message });
+      }
     }
-
-    const payload = JwtProvider.verifyToken(token);
-    return res.status(200).json({
-      id: payload.id,
-      email: payload.email,
-      role: payload.role,
-    });
   }
 }

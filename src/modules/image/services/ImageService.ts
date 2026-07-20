@@ -12,6 +12,13 @@ export class ImageService {
     return photoFile;
   }
 
+  private getPublicIdFromUrl(url: string): string {
+    const path = url.replace("https://res.cloudinary.com/", "");
+    const parts = path.split("/");
+    const fileName = parts[parts.length - 1];
+    return fileName.replace(/\.[^.]+$/, "");
+  }
+
   public async uploadPetPhoto(photo: Express.Multer.File): Promise<string> {
     try {
       // transforma a foto para formato File antes de enviar para api do cloudinary
@@ -66,5 +73,12 @@ export class ImageService {
     } catch (error) {
       throw error;
     }
+  }
+
+  public async deletePhoto(url: string): Promise<void> {
+    try {
+      // pega o publicId da imagem
+      const publicId = this.getPublicIdFromUrl(url);
+    } catch (error) {}
   }
 }

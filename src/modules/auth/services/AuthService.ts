@@ -30,4 +30,14 @@ export class AuthService {
 
     return { client: clientWithoutPassword, token };
   }
+
+  async getLoggedClientById(id: string) {
+    const client = await this.clientRepository.findById(id);
+
+    if (!client) {
+      throw new Error("Usuário não encontrado.");
+    }
+
+    return client;
+  }
 }
