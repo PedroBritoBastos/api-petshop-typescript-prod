@@ -57,7 +57,7 @@ export class AuthController {
 
       // pega os dados do cliente logado
       const payload = JwtProvider.verifyToken(token);
-      const client = await this.authService.getLoggedClientById(payload.id);
+      const client = await AuthController.authService.getLoggedClientById(payload.id);
 
       return res.status(200).json({ result: client });
     } catch (error) {
