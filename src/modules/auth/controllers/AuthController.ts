@@ -44,8 +44,8 @@ export class AuthController {
     return res.status(200).json({ message: "Logout realizado." });
   }
 
-  // pega o token dos cookies e retorna o payload com os dados do cliente logado
-  static async getLoggedClient(req: Request, res: Response) {
+  // verifica se o cliente logado é admin
+  static async verifyIfLoggedClientIsAdmin(req: Request, res: Response) {
     try {
       // verifica se o cliente está autenticado
       const token = req.cookies.token;
@@ -67,8 +67,8 @@ export class AuthController {
     }
   }
 
-  // verifica se o cliente logado é admin
-  static async verifyIfLoggedClientIsAdmin(req: Request, res: Response) {
+  // pega o token dos cookies e retorna o payload com os dados do cliente logado
+  static async getLoggedClient(req: Request, res: Response) {
     try {
       // verifica se o cliente está autenticado
       const token = req.cookies.token;
