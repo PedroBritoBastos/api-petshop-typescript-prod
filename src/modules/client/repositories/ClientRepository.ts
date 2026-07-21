@@ -7,11 +7,11 @@ import { prisma } from "../../../shared/prisma/prisma";
 export class ClientRepository implements IClientRepository {
   async getAll(): Promise<ClientResponseDTO[]> {
     return await prisma.client.findMany({
-      where: {
+      /*     where: {
         role: {
           not: "admin",
         },
-      },
+      }, */
       select: {
         id: true,
         name: true,
