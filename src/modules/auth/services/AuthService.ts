@@ -1,6 +1,7 @@
 import { ClientRepository } from "../../client/repositories/ClientRepository";
 import { JwtProvider } from "../../../shared/auth/JwtProvider";
 import { BcryptProvider } from "../../../shared/crypto/BcryptProvider";
+import { TokenPayload } from "../../client/types/TokenPayload";
 
 /**
  * this class deals with login and regitering clients
@@ -39,5 +40,14 @@ export class AuthService {
     }
 
     return client;
+  }
+
+  async verifyIfLoggedClientIsAdmin(payload: TokenPayload) {
+    if (!payload) {
+      throw new Error("Sem dados do cliente.");
+    }
+
+    if (payload.role === "admin") return true;
+    return false;
   }
 }

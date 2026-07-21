@@ -14,5 +14,6 @@ export class AuthRoutes {
     this.router.post("/auth/login", AuthControllerMiddleware.validateData, AuthController.login);
     this.router.post("/auth/logout", AuthController.logout);
     this.router.get("/auth/get", AuthController.getLoggedClient);
+    this.router.get("/auth/admin/verify", AuthController.verifyIfLoggedClientIsAdmin);
   }
 }

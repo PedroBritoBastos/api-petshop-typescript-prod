@@ -55,6 +55,29 @@ export class AuthController {
         });
       }
 
+      // pega os dados do cliente logado e verifica se é admin
+      const payload = JwtProvider.verifyToken(token);
+      const isAdmin = await AuthController.authService.verifyIfLoggedClientIsAdmin(payload);
+
+      return res.status(200).json({ result: isAdmin });
+    } catch (error) {
+      if (error instanceof Error) {
+        return res.status(404).json({ message: error.message });
+      }
+    }
+  }
+
+  // verifica se o cliente logado é admin
+  static async verifyIfLoggedClientIsAdmin(req: Request, res: Response) {
+    try {
+      // verifica se o cliente está autenticado
+      const token = req.cookies.token;
+      if (!token) {
+        return res.status(401).json({
+          message: "Não autenticado",
+        });
+      }
+
       // pega os dados do cliente logado
       const payload = JwtProvider.verifyToken(token);
       const client = await AuthController.authService.getLoggedClientById(payload.id);
