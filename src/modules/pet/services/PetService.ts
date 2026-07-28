@@ -1,4 +1,4 @@
-import { Pet } from "../../../generated/prisma/client";
+import { Pet } from "@prisma/client";
 
 import { CreatePetDTO } from "../dtos/CreatePetDTO";
 import { UpdatePetDTO } from "../dtos/UpdatePetDTO";
@@ -83,5 +83,16 @@ export class PetService {
 
   async getAdoptedPetsByClientId(clientId: string): Promise<Pet[] | null> {
     return await this.petRepository.findByIsAdoptedByClientId(clientId);
+  }
+
+  async requestAdoption(id: string): Promise<Pet | null> {
+    // verificando se o pet esta disponivel
+    const pet = await this.petRepository.findById(id);
+
+    if (!pet) throw new Error("O pet não existe.");
+
+    if (pet.adoptionStatus !== "available") throw new Error("O pet não está disponível para adocao.");
+
+    return await this.petRepository.update(id, { adoptionStatus: "pending" });
   }
 }

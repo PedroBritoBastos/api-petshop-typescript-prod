@@ -63,6 +63,9 @@ export class PetRoutes {
     // atualizar pet
     this.router.put("/pets/:id", PetMiddleware.verifyIfClientIsLogged, petController.update.bind(petController));
 
+    // solicitar adocao de pet
+    this.router.put("/pets/:id/adoption-request", PetMiddleware.verifyIfClientIsLogged, petController.requestAdoption.bind(petController));
+
     // adotar pet
     this.router.put("/pets/adoption/:id", PetMiddleware.verifyIfClientIsLogged, petController.adopt.bind(petController));
 

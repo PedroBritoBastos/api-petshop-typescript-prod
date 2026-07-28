@@ -215,4 +215,21 @@ export class PetController {
       }
     }
   }
+
+  async requestAdoption(req: Request, res: Response): Promise<Response | undefined> {
+    try {
+      const petId = req.params.petId as string;
+      const result = await this.petService.requestAdoption(petId);
+      return res.status(200).json({
+        message: "Adocao solicitada para o pet:",
+        result,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        return res.status(400).json({
+          message: error.message,
+        });
+      }
+    }
+  }
 }
