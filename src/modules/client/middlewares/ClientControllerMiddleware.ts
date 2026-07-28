@@ -50,14 +50,18 @@ export class ClientControllerMiddleware {
       // decodificando o token
       const decoded = JwtProvider.verifyToken(token) as TokenPayload;
 
-      // verificando se o usuário é o mesmo que está querendo acessar o recurso
       const id = req.params.id as string;
 
+      // verificando se o usuário é o mesmo que está querendo acessar o recurso
+      // admin possui autorizacao
       if (id && id !== decoded.id) {
-        return res.status(403).json({
-          message: "Sem autorização",
-        });
+        if (decoded.role !== "admin") {
+          return res.status(403).json({
+            message: "Sem autorização",
+          });
+        }
       }
+
       return next();
     } catch (error) {
       return res.status(401).json({
