@@ -1,5 +1,5 @@
 import { prisma } from "../../../shared/prisma/prisma";
-import { Pet } from "../../../generated/prisma/client";
+import { Pet } from "@prisma/client";
 import { IPetRepository } from "./IPetRepository";
 import { CreatePetDTO } from "../dtos/CreatePetDTO";
 import { UpdatePetDTO } from "../dtos/UpdatePetDTO";
