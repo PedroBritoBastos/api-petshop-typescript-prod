@@ -9,7 +9,7 @@ export interface IClientRepository {
 
   findById(id: string): Promise<ClientResponseDTO | null>;
 
-  update(id: string, data: UpdateClientDTO): Promise<ClientResponseDTO>;
+  update(id: string, data: UpdateClientDTO): Promise<ClientResponseDTO | null>;
 
   deleteById(id: string): Promise<void>;
 
