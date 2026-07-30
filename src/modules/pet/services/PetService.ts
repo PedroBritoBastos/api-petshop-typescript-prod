@@ -1,4 +1,4 @@
-import { Pet } from "@prisma/client";
+import { Pet } from "../types/Pet";
 
 import { CreatePetDTO } from "../dtos/CreatePetDTO";
 import { UpdatePetDTO } from "../dtos/UpdatePetDTO";
@@ -12,7 +12,7 @@ export class PetService {
     return await this.petRepository.create(data);
   }
 
-  async deleteById(clientId: string, id: string): Promise<Pet> {
+  async deleteById(clientId: string, id: string): Promise<Pet | null> {
     const pet = await this.petRepository.findById(id);
 
     if (!pet) {
@@ -34,7 +34,7 @@ export class PetService {
     return await this.petRepository.findById(petId);
   }
 
-  async update(id: string, clientId: string, data: UpdatePetDTO): Promise<Pet> {
+  async update(id: string, clientId: string, data: UpdatePetDTO): Promise<Pet | null> {
     const pet = await this.petRepository.findById(id);
 
     if (!pet) {
@@ -48,7 +48,7 @@ export class PetService {
     return await this.petRepository.update(id, data);
   }
 
-  async adopt(id: string, adoptionClientId: string, data: UpdatePetDTO): Promise<Pet> {
+  async adopt(id: string, adoptionClientId: string, data: UpdatePetDTO): Promise<Pet | null> {
     const pet = await this.petRepository.findById(id);
 
     if (!pet) {
@@ -63,7 +63,7 @@ export class PetService {
     return await this.petRepository.update(id, data);
   }
 
-  async uploadPhoto(id: string, data: UpdatePetDTO): Promise<Pet> {
+  async uploadPhoto(id: string, data: UpdatePetDTO): Promise<Pet | null> {
     const pet = await this.petRepository.findById(id);
 
     if (!pet) {

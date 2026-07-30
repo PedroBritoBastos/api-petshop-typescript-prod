@@ -1,66 +1,166 @@
-import { prisma } from "../../../shared/prisma/prisma";
-import { Pet } from "@prisma/client";
+import { PetModel } from "../models/Pet";
+import { Pet } from "../types/Pet";
 import { IPetRepository } from "./IPetRepository";
 import { CreatePetDTO } from "../dtos/CreatePetDTO";
 import { UpdatePetDTO } from "../dtos/UpdatePetDTO";
 
 export class PetRepository implements IPetRepository {
   async create(data: CreatePetDTO): Promise<Pet> {
-    const pet = await prisma.pet.create({
-      data,
-    });
-    return pet;
+    const pet = await PetModel.create(data);
+
+    return {
+      id: pet._id.toString(),
+      clientId: pet.clientId,
+      name: pet.name,
+      age: pet.age,
+      weight: pet.weight,
+      isAdopted: pet.isAdopted,
+      imageUrl: pet.imageUrl,
+      adoptionClientId: pet.adoptionClientId as string,
+      adoptionStatus: pet.adoptionStatus,
+      createdAt: pet.createdAt,
+      updatedAt: pet.updatedAt,
+    };
   }
 
-  async deleteById(id: string): Promise<Pet> {
-    const deletedPet = await prisma.pet.delete({
-      where: { id },
-    });
-    return deletedPet;
+  async deleteById(id: string): Promise<Pet | null> {
+    const pet = await PetModel.findByIdAndDelete(id).lean();
+
+    if (!pet) return null;
+
+    return {
+      id: pet._id.toString(),
+      clientId: pet.clientId,
+      name: pet.name,
+      age: pet.age,
+      weight: pet.weight,
+      isAdopted: pet.isAdopted,
+      imageUrl: pet.imageUrl,
+      adoptionClientId: pet.adoptionClientId as string,
+      adoptionStatus: pet.adoptionStatus,
+      createdAt: pet.createdAt,
+      updatedAt: pet.updatedAt,
+    };
   }
 
   async findById(id: string): Promise<Pet | null> {
-    const pet = await prisma.pet.findUnique({
-      where: { id },
-    });
-    return pet;
+    const pet = await PetModel.findById(id).lean();
+
+    if (!pet) return null;
+
+    return {
+      id: pet._id.toString(),
+      clientId: pet.clientId,
+      name: pet.name,
+      age: pet.age,
+      weight: pet.weight,
+      isAdopted: pet.isAdopted,
+      imageUrl: pet.imageUrl,
+      adoptionClientId: pet.adoptionClientId as string,
+      adoptionStatus: pet.adoptionStatus,
+      createdAt: pet.createdAt,
+      updatedAt: pet.updatedAt,
+    };
   }
 
   async getAll(): Promise<Pet[]> {
-    return await prisma.pet.findMany();
+    const pets = await PetModel.find().lean();
+
+    return pets.map((pet) => ({
+      id: pet._id.toString(),
+      clientId: pet.clientId,
+      name: pet.name,
+      age: pet.age,
+      weight: pet.weight,
+      isAdopted: pet.isAdopted,
+      imageUrl: pet.imageUrl,
+      adoptionClientId: pet.adoptionClientId as string,
+      adoptionStatus: pet.adoptionStatus,
+      createdAt: pet.createdAt,
+      updatedAt: pet.updatedAt,
+    }));
   }
 
-  async update(id: string, data: UpdatePetDTO): Promise<Pet> {
-    const updatedPet = await prisma.pet.update({
-      where: { id },
-      data,
-    });
+  async update(id: string, data: UpdatePetDTO): Promise<Pet | null> {
+    const pet = await PetModel.findByIdAndUpdate(id, data, {
+      new: true,
+    }).lean();
 
-    return updatedPet;
+    if (!pet) return null;
+
+    return {
+      id: pet._id.toString(),
+      clientId: pet.clientId,
+      name: pet.name,
+      age: pet.age,
+      weight: pet.weight,
+      isAdopted: pet.isAdopted,
+      imageUrl: pet.imageUrl,
+      adoptionClientId: pet.adoptionClientId as string,
+      adoptionStatus: pet.adoptionStatus,
+      createdAt: pet.createdAt,
+      updatedAt: pet.updatedAt,
+    };
   }
 
   async findByIsAdopted(): Promise<Pet[] | null> {
-    return await prisma.pet.findMany({
-      where: {
-        isAdopted: true,
-      },
-    });
+    const pets = await PetModel.find({
+      isAdopted: true,
+    }).lean();
+
+    return pets.map((pet) => ({
+      id: pet._id.toString(),
+      clientId: pet.clientId,
+      name: pet.name,
+      age: pet.age,
+      weight: pet.weight,
+      isAdopted: pet.isAdopted,
+      imageUrl: pet.imageUrl,
+      adoptionClientId: pet.adoptionClientId as string,
+      adoptionStatus: pet.adoptionStatus,
+      createdAt: pet.createdAt,
+      updatedAt: pet.updatedAt,
+    }));
   }
 
   async findByNotAdopted(): Promise<Pet[] | null> {
-    return await prisma.pet.findMany({
-      where: {
-        isAdopted: false,
-      },
-    });
+    const pets = await PetModel.find({
+      isAdopted: false,
+    }).lean();
+
+    return pets.map((pet) => ({
+      id: pet._id.toString(),
+      clientId: pet.clientId,
+      name: pet.name,
+      age: pet.age,
+      weight: pet.weight,
+      isAdopted: pet.isAdopted,
+      imageUrl: pet.imageUrl,
+      adoptionClientId: pet.adoptionClientId as string,
+      adoptionStatus: pet.adoptionStatus,
+      createdAt: pet.createdAt,
+      updatedAt: pet.updatedAt,
+    }));
   }
 
   async findByIsAdoptedByClientId(clientId: string): Promise<Pet[] | null> {
-    return await prisma.pet.findMany({
-      where: {
-        adoptionClientId: clientId,
-        isAdopted: true,
-      },
-    });
+    const pets = await PetModel.find({
+      adoptionClientId: clientId,
+      isAdopted: true,
+    }).lean();
+
+    return pets.map((pet) => ({
+      id: pet._id.toString(),
+      clientId: pet.clientId,
+      name: pet.name,
+      age: pet.age,
+      weight: pet.weight,
+      isAdopted: pet.isAdopted,
+      imageUrl: pet.imageUrl,
+      adoptionClientId: pet.adoptionClientId as string,
+      adoptionStatus: pet.adoptionStatus,
+      createdAt: pet.createdAt,
+      updatedAt: pet.updatedAt,
+    }));
   }
 }

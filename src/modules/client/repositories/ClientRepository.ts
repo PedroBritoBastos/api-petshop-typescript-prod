@@ -1,6 +1,7 @@
 import { CreateClientDTO } from "../dtos/CreateClientDTO";
 import { UpdateClientDTO } from "../dtos/UpdateClientDTO";
 import { ClientResponseDTO } from "../dtos/ClientResponseDTO";
+import { LoginClientDTO } from "../dtos/LoginClientDTO";
 import { IClientRepository } from "./IClientRepository";
 import { ClientModel } from "../models/Client";
 
@@ -40,7 +41,7 @@ export class ClientRepository implements IClientRepository {
     };
   }
 
-  async findByEmail(email: string): Promise<ClientResponseDTO | null> {
+  async findByEmail(email: string): Promise<LoginClientDTO | null> {
     const client = await ClientModel.findOne({ email }).lean();
 
     if (!client) return null;
@@ -52,6 +53,8 @@ export class ClientRepository implements IClientRepository {
       phone: client.phone,
       cpf: client.cpf,
       imageUrl: client.imageUrl as string,
+      password: client.password,
+      role: client.role,
     };
   }
 

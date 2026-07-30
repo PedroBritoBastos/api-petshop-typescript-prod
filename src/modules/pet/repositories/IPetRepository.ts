@@ -1,4 +1,4 @@
-import type { Pet } from "@prisma/client";
+import { Pet } from "../types/Pet";
 import { CreatePetDTO } from "../dtos/CreatePetDTO";
 import { UpdatePetDTO } from "../dtos/UpdatePetDTO";
 
@@ -8,7 +8,7 @@ export interface IPetRepository {
   findByIsAdopted(): Promise<Pet[] | null>;
   findByNotAdopted(): Promise<Pet[] | null>;
   findByIsAdoptedByClientId(clientId: string): Promise<Pet[] | null>;
-  deleteById(id: string): Promise<Pet>;
+  deleteById(id: string): Promise<Pet | null>;
   getAll(): Promise<Pet[]>;
-  update(id: string, data: UpdatePetDTO): Promise<Pet>;
+  update(id: string, data: UpdatePetDTO): Promise<Pet | null>;
 }

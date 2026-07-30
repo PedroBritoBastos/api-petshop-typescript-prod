@@ -1,11 +1,12 @@
 import { CreateClientDTO } from "../dtos/CreateClientDTO";
 import { UpdateClientDTO } from "../dtos/UpdateClientDTO";
 import { ClientResponseDTO } from "../dtos/ClientResponseDTO";
+import { LoginClientDTO } from "../dtos/LoginClientDTO";
 
 export interface IClientRepository {
   create(data: CreateClientDTO): Promise<ClientResponseDTO>;
 
-  findByEmail(email: string): Promise<ClientResponseDTO | null>;
+  findByEmail(email: string): Promise<LoginClientDTO | null>;
 
   findById(id: string): Promise<ClientResponseDTO | null>;
 
