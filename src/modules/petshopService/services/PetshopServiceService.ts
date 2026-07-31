@@ -14,7 +14,7 @@ export class PetshopServiceService {
     return await this.petshopServiceRepository.getAll();
   }
 
-  async deleteById(id: string): Promise<PetshopService> {
+  async deleteById(id: string): Promise<PetshopService | null> {
     const petshopService = await this.petshopServiceRepository.getById(id);
 
     if (!petshopService) {
@@ -24,7 +24,7 @@ export class PetshopServiceService {
     return await this.petshopServiceRepository.deleteById(id);
   }
 
-  async finishService(id: string, data: UpdatePetshopServiceDTO): Promise<PetshopService> {
+  async finishService(id: string, data: UpdatePetshopServiceDTO): Promise<PetshopService | null> {
     const petshopService = await this.petshopServiceRepository.getById(id);
     if (!petshopService) throw new Error("Serviço não encontrado.");
     return await this.petshopServiceRepository.update(id, data);
