@@ -12,7 +12,7 @@ export class PetController {
 
   async create(req: Request, res: Response): Promise<Response | undefined> {
     try {
-      const { name, age, weight } = req.body;
+      const { name, age, weight, breed } = req.body;
       const clientId = JwtProvider.getLoggedClientId(req);
       let imageUrl = "";
 
@@ -27,6 +27,7 @@ export class PetController {
         weight: Number(weight),
         isAdopted: false,
         imageUrl,
+        breed,
       };
 
       const result = await this.petService.create(data);

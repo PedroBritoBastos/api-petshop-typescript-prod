@@ -20,6 +20,7 @@ export class PetRepository implements IPetRepository {
       adoptionStatus: pet.adoptionStatus,
       createdAt: pet.createdAt,
       updatedAt: pet.updatedAt,
+      breed: pet.breed,
     };
   }
 
@@ -40,6 +41,7 @@ export class PetRepository implements IPetRepository {
       adoptionStatus: pet.adoptionStatus,
       createdAt: pet.createdAt,
       updatedAt: pet.updatedAt,
+      breed: pet.breed,
     };
   }
 
@@ -60,6 +62,7 @@ export class PetRepository implements IPetRepository {
       adoptionStatus: pet.adoptionStatus,
       createdAt: pet.createdAt,
       updatedAt: pet.updatedAt,
+      breed: pet.breed,
     };
   }
 
@@ -78,6 +81,7 @@ export class PetRepository implements IPetRepository {
       adoptionStatus: pet.adoptionStatus,
       createdAt: pet.createdAt,
       updatedAt: pet.updatedAt,
+      breed: pet.breed,
     }));
   }
 
@@ -100,6 +104,7 @@ export class PetRepository implements IPetRepository {
       adoptionStatus: pet.adoptionStatus,
       createdAt: pet.createdAt,
       updatedAt: pet.updatedAt,
+      breed: pet.breed,
     };
   }
 
@@ -120,6 +125,7 @@ export class PetRepository implements IPetRepository {
       adoptionStatus: pet.adoptionStatus,
       createdAt: pet.createdAt,
       updatedAt: pet.updatedAt,
+      breed: pet.breed,
     }));
   }
 
@@ -141,6 +147,7 @@ export class PetRepository implements IPetRepository {
       adoptionStatus: pet.adoptionStatus,
       createdAt: pet.createdAt,
       updatedAt: pet.updatedAt,
+      breed: pet.breed,
     }));
   }
 
@@ -161,6 +168,7 @@ export class PetRepository implements IPetRepository {
       adoptionStatus: pet.adoptionStatus,
       createdAt: pet.createdAt,
       updatedAt: pet.updatedAt,
+      breed: pet.breed,
     }));
   }
 }

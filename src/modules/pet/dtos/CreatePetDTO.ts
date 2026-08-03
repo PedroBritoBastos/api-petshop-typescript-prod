@@ -5,4 +5,5 @@ export interface CreatePetDTO {
   weight: number;
   isAdopted: boolean;
   imageUrl: string;
+  breed: string;
 }

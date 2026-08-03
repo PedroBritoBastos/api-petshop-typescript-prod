@@ -41,6 +41,11 @@ const petSchema = new Schema(
       default: "available",
       required: true,
     },
+
+    breed: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

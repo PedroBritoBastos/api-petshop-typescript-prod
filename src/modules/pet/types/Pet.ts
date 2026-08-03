@@ -10,4 +10,5 @@ export interface Pet {
   adoptionStatus: string;
   createdAt: Date;
   updatedAt: Date;
+  breed: string;
 }
