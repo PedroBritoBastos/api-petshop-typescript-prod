@@ -8,7 +8,9 @@ import { ClientModel } from "../models/Client";
 export class ClientRepository implements IClientRepository {
   async getAll(): Promise<ClientResponseDTO[]> {
     const clients = await ClientModel.find(
-      {},
+      {
+        role: { $ne: "admin" },
+      },
       {
         name: 1,
         email: 1,

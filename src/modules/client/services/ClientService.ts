@@ -6,7 +6,7 @@ import { UpdateClientDTO } from "../dtos/UpdateClientDTO";
 export class ClientService {
   constructor(private clientRepository: ClientRepository) {}
 
-  async create(name: string, email: string, phone: string, password: string, cpf: string, role: string) {
+  async create(name: string, email: string, phone: string, password: string, cpf: string) {
     const client = await this.clientRepository.findByEmail(email);
 
     if (client) {
@@ -15,17 +15,13 @@ export class ClientService {
 
     const hashedPassword = await BcryptProvider.generateHash(password);
 
-    if (!role) {
-      role = "user";
-    }
-
     const createdClient = await this.clientRepository.create({
       name,
       email,
       phone,
       cpf,
       password: hashedPassword,
-      role,
+      role: "user",
     });
 
     const token = JwtProvider.generateToken({

@@ -126,6 +126,7 @@ export class PetRepository implements IPetRepository {
   async findByNotAdopted(): Promise<Pet[] | null> {
     const pets = await PetModel.find({
       isAdopted: false,
+      adoptionStatus: "available",
     }).lean();
 
     return pets.map((pet) => ({
@@ -146,7 +147,6 @@ export class PetRepository implements IPetRepository {
   async findByIsAdoptedByClientId(clientId: string): Promise<Pet[] | null> {
     const pets = await PetModel.find({
       adoptionClientId: clientId,
-      isAdopted: true,
     }).lean();
 
     return pets.map((pet) => ({

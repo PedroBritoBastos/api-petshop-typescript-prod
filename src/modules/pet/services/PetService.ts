@@ -48,19 +48,26 @@ export class PetService {
     return await this.petRepository.update(id, data);
   }
 
-  async adopt(id: string, adoptionClientId: string, data: UpdatePetDTO): Promise<Pet | null> {
+  async aproveAdoption(id: string, data: UpdatePetDTO): Promise<Pet | null> {
+    // recebendo o pet pelo id
     const pet = await this.petRepository.findById(id);
 
     if (!pet) {
       throw new Error("Pet não encontrado.");
     }
 
+    // recebendo o adoptionClientId desse pet
+    const adoptionClientId = pet.adoptionClientId;
+
     // verificando se o usuário logado está tentando adotar seu próprio pet
     if (pet.clientId === adoptionClientId) {
       throw new Error("Você não pode adotar seu próprio pet.");
     }
 
-    return await this.petRepository.update(id, data);
+    // adicionando o adoptionClientId no DTO para atualizar o campo clientId com o novo dono
+    const dataWithAdoptionClientId = { ...data, clientId: adoptionClientId };
+
+    return await this.petRepository.update(id, dataWithAdoptionClientId);
   }
 
   async uploadPhoto(id: string, data: UpdatePetDTO): Promise<Pet | null> {
@@ -85,7 +92,7 @@ export class PetService {
     return await this.petRepository.findByIsAdoptedByClientId(clientId);
   }
 
-  async requestAdoption(id: string): Promise<Pet | null> {
+  async requestAdoption(id: string, adoptionClientId: string): Promise<Pet | null> {
     // verificando se o pet esta disponivel
     const pet = await this.petRepository.findById(id);
 
@@ -93,6 +100,6 @@ export class PetService {
 
     if (pet.adoptionStatus !== "available") throw new Error("O pet não está disponível para adocao.");
 
-    return await this.petRepository.update(id, { adoptionStatus: "pending" });
+    return await this.petRepository.update(id, { adoptionStatus: "pending", adoptionClientId });
   }
 }

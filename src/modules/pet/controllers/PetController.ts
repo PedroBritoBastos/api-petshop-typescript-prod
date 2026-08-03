@@ -50,6 +50,9 @@ export class PetController {
       const id = req.params.id as string;
       const result = await this.petService.deleteById(clientId, id);
 
+      // excluindo a imagem do pet
+      await this.imageService.deletePhoto(result?.imageUrl as string);
+
       return res.status(200).json({
         message: "Pet excluído com sucesso.",
         result,
@@ -92,18 +95,17 @@ export class PetController {
     }
   }
 
-  async adopt(req: Request, res: Response): Promise<Response | undefined> {
+  async aproveAdoption(req: Request, res: Response): Promise<Response | undefined> {
     try {
-      const adoptionClientId = JwtProvider.getLoggedClientId(req); // logged user id
       const id = req.params.id as string; // pet id
 
-      // criando DTO
+      // criando DTO para atualizar
       const data = {
         isAdopted: true,
-        adoptionClientId,
+        adoptionStatus: "aproved",
       };
 
-      const result = await this.petService.adopt(id, adoptionClientId, data);
+      const result = await this.petService.aproveAdoption(id, data);
 
       return res.status(200).json({
         message: "Pet adotado com sucesso.",
@@ -218,8 +220,9 @@ export class PetController {
 
   async requestAdoption(req: Request, res: Response): Promise<Response | undefined> {
     try {
-      const petId = req.params.petId as string;
-      const result = await this.petService.requestAdoption(petId);
+      const id = req.params.id as string;
+      const adoptionClientId = JwtProvider.getLoggedClientId(req); // logged user id
+      const result = await this.petService.requestAdoption(id, adoptionClientId);
       return res.status(200).json({
         message: "Adocao solicitada para o pet:",
         result,

@@ -6,5 +6,5 @@ export interface UpdatePetDTO {
   isAdopted?: boolean;
   imageUrl?: string;
   adoptionClientId?: string;
-  adoptionStatus?: "available" | "pending" | "adopted";
+  adoptionStatus?: string;
 }

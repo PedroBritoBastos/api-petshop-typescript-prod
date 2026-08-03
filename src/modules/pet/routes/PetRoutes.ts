@@ -66,8 +66,8 @@ export class PetRoutes {
     // solicitar adocao de pet
     this.router.put("/pets/:id/adoption-request", PetMiddleware.verifyIfClientIsLogged, petController.requestAdoption.bind(petController));
 
-    // adotar pet
-    this.router.put("/pets/adoption/:id", PetMiddleware.verifyIfClientIsLogged, petController.adopt.bind(petController));
+    // aprovar adocao de pet
+    this.router.put("/pets/:id/adoption-aprove", PetMiddleware.verifyIfClientIsLogged, petController.aproveAdoption.bind(petController));
 
     // enviar foto do pet
     this.router.post("/pets/upload/:id", new Multer("src/data/photos/pets").upload.single("petPhoto"), PetMiddleware.validadePhotoData, petController.uploadPhoto.bind(petController));
