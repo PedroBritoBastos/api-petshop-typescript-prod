@@ -30,11 +30,11 @@ export class PetController {
         breed,
       };
 
-      const result = await this.petService.create(data);
+      // funcionalidade de criar pets desativado
+      // const result = await this.petService.create(data);
 
       return res.status(201).json({
-        message: "Pet criado com sucesso.",
-        result,
+        message: "Sucesso, porém nenhum pet foi criado pois esta funcionalidade está desativada.",
       });
     } catch (error) {
       if (error instanceof Error) {
