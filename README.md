@@ -1,45 +1,40 @@
-# Sobre o projeto
+# Projeto Backend: API de petshop com typescript
 
+## 💡Sobre o projeto
 Este projeto é uma API de petshop feita em typescript para fins de estudo. 
 
-# Tecnologias 
-
-- Typescript: para base do código orientado a objetos
-- Express: para lidar com as requisições e rotas
-- Express-validator: para validar dados e criar senha forte
-- Jsonwebtoken (JWT): para criar token de usuário
-- Cookie-parser: para salvar token em cookies
-
-# Arquitetura
-
+## 📐 Arquitetura
 A arquitetura escolhida para este projeto foi a de desenvolvimento em módulos para facilitar a separação dos domínios. A estrutura de camadas desse projeto foi feita usando o padrão Repository Pattern:
 
 - Controllers -> lidam com as requisições do usuário e devolvem as respostas ao cliente.
 - Services -> camada das regras de negócio
 - Repository -> camada que se comunica com o banco de dados.
 
-# Banco de Dados
-
-- O banco escolhido foi o SQLite por ser um projeto mais simples e por poder salvar os dados no próprio projeto sem fazer conexão com um banco externo.
-
-# ORM
-
-- Prisma: para facilitar a comunicação com o banco de dados.
-
-- # Entidades
-
-<img width="1052" height="645" alt="image" src="https://github.com/user-attachments/assets/c3631651-f504-40a9-917d-724b1549ad71" />
-
-# Fluxos
-
-<img width="1677" height="510" alt="image" src="https://github.com/user-attachments/assets/9fdd5433-2187-451d-aec4-df4dfcdf7c58" />
+## 💻 Tecnologias 
+- Typescript: para base do código orientado a objetos
+- Express: para lidar com as requisições e rotas
+- Express-validator: para validar dados e criar senha forte
+- Jsonwebtoken (JWT): para criar token de usuário
+- Cookie-parser: para salvar token em cookies
 
 
-# Como usar o projeto
+## 🗃️ Banco de Dados
+- O banco escolhido foi o MongoDB juntamente com o mongoose.
+
+## Entidades
+
+- Client
+- Pet
+- PetshopService
+
+## Como usar o projeto
 
 - use: git clone <nome do repositório> main
 - instale as dependências (node modules)
 - no terminal faça o comando: npm run dev
+
+## Deploy no Render
+https://api-petshop-typescript-prod.onrender.com
 
 # Rotas
 
@@ -63,11 +58,6 @@ A arquitetura escolhida para este projeto foi a de desenvolvimento em módulos p
   <li style="display: flex; align-items: center; gap: 8px;">
     <img src="https://img.shields.io/badge/DELETE-red" alt="DELETE">
     /clients/:id → remove um cliente pelo ID
-  </li>
-
-  <li style="display: flex; align-items: center; gap: 8px;">
-    <img src="https://img.shields.io/badge/POST-green" alt="POST">
-    /clients/upload/:id → faz upload da foto de um cliente
   </li>
 </ul>
 
@@ -114,6 +104,16 @@ A arquitetura escolhida para este projeto foi a de desenvolvimento em módulos p
   </li>
 
   <li style="display: flex; align-items: center; gap: 8px;">
+    <img src="https://img.shields.io/badge/PUT-orange" alt="PUT">
+    /pets/:id/adoption-request → solicita um pedido de adoção para o pet 
+  </li>
+
+  <li style="display: flex; align-items: center; gap: 8px;">
+    <img src="https://img.shields.io/badge/PUT-orange" alt="PUT">
+    /pets/:id/adoption-aprove → aprova a adoção do pet
+  </li>
+
+  <li style="display: flex; align-items: center; gap: 8px;">
     <img src="https://img.shields.io/badge/DELETE-red" alt="DELETE">
     /pets/:id → remove um pet
   </li>
@@ -124,7 +124,7 @@ A arquitetura escolhida para este projeto foi a de desenvolvimento em módulos p
   </li>
 </ul>
 
-## Rotas de autorização
+## Rotas de autorização/autenticação
 
 <ul>
   <li style="display: flex; align-items: center; gap: 8px;">
@@ -140,6 +140,11 @@ A arquitetura escolhida para este projeto foi a de desenvolvimento em módulos p
   <li style="display: flex; align-items: center; gap: 8px;">
     <img src="https://img.shields.io/badge/GET-blue" alt="GET">
     /auth/get → resgata os dados do usuário autenticado
+  </li>
+
+  <li style="display: flex; align-items: center; gap: 8px;">
+    <img src="https://img.shields.io/badge/GET-blue" alt="GET">
+    /auth/admin/verify → verifica se o cliente logado é admin
   </li>
 </ul>
 
@@ -163,7 +168,7 @@ A arquitetura escolhida para este projeto foi a de desenvolvimento em módulos p
 
   <li style="display: flex; align-items: center; gap: 8px;">
     <img src="https://img.shields.io/badge/PUT-orange" alt="PUT">
-    /petshopServices/:id → finaliza um serviço
+    /petshopServices/:id → atualiza um serviço
   </li>
 
   <li style="display: flex; align-items: center; gap: 8px;">
