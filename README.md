@@ -33,8 +33,8 @@ A arquitetura escolhida para este projeto foi a de desenvolvimento em módulos p
 - instale as dependências (node modules)
 - no terminal faça o comando: npm run dev
 
-## Deploy no Render
-https://api-petshop-typescript-prod.onrender.com
+## Deploy 
+O deploy da API foi realizada no render: https://api-petshop-typescript-prod.onrender.com
 
 # Rotas
 
