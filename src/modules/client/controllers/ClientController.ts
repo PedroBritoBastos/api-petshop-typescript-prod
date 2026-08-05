@@ -8,8 +8,9 @@ export class ClientController {
     const { name, email, phone, password, cpf } = req.body;
 
     try {
-      const result = await this.clientService.create(name, email, phone, password, cpf);
-      return res.status(201).json(result);
+      // funcionalidade desativada
+      //const result = await this.clientService.create(name, email, phone, password, cpf);
+      return res.status(201).json({ message: "Ação bem sucedida, porém esta funcionalidade está desativada" });
     } catch (error) {
       if (error instanceof Error) {
         return res.status(400).json({
